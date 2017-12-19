@@ -6,6 +6,8 @@ stateRatings = {};
 ratingColors = ["#585858", "#680000", "#B80000", "#FF0000", "#FF7400",
                 "#FFB900", "#FFF300", "#A3D700", "#36A300", "#006C05"];
 
+ratingFluff = ["Irredeemable", "Awful", "Bad", "Mediocre", "Average", "Fair", "Good", "Very Good", "Excellent", "Outstanding"];
+
 //The currently selected rating.  
 var selectedRating = 10;
 
@@ -24,7 +26,7 @@ function initMap() {
 function createMap() {
     $('#map').usmap({
         stateStyles: {fill: 'white'},
-        stateHoverStyles: {fill: 'darkgreen'},
+        stateHoverStyles: {fill: 'white'},
         stateHoverAnimation: 50
     });
 }
@@ -63,11 +65,15 @@ function updateStateFillColor(stateId) {
     $('#map').usmap('stateSpecificStyles', fillStyle);
 }
 
+/**
+ * creates the 10 rating buttons with onclick events.
+ */
 function initRatingButtons() {
     for(var i = 1; i <= 10; i++) {
         $('#ratingPickBox').append("<button id='ratingButton" + i + 
                 "' style='background-color:" + ratingColors[i - 1] + 
-                "' onclick='selectedRating = " + i + "'> " + i + "</button>");
+                "' onclick='selectedRating = " + i + "' class='ratingButton'>" +
+                i + " - " + ratingFluff[i - 1] + "</button>");
     }
 }
 

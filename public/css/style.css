@@ -1,3 +1,7 @@
+body {
+    font-family: Georgia, Times, "Times New Roman", serif;
+}
+
 div {
     border: solid 2px black;
     padding: 2px;
@@ -35,3 +39,12 @@ div {
     border-color: lightgrey;
 }
 
+.ratingButton {
+    padding: 5px 30px 5px 30px;
+    margin: 0px 10px 0px 10px;
+}
+
+#ratingButton1 {color: white}
+#ratingButton2 {color: white}
+#ratingButton3 {color: white}
+#ratingButton10 {color: white}
