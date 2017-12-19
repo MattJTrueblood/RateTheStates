@@ -38,6 +38,17 @@ div {
     border-color: lightgrey;
 }
 
+#submitButton {
+    font-size: 1.5em;
+    padding: 10px 20px 10px 20px;
+    background: linear-gradient(to bottom, #e6f0a3 0%,#d2e638 50%,#c3d825 51%,#dbf043 100%);
+}
+
+#ratingCounter {
+    font-size: 1.3em;
+    color: darkred;
+}
+
 .ratingButton {
     padding: 5px 30px 5px 30px;
     margin: 0px 10px 0px 10px;
