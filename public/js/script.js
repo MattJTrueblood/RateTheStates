@@ -44,7 +44,7 @@ function setupMapClickEvent() {
  * Called when a state is clicked on.  Stores the rating for that state, and updates the display.
  */
 function applyRatingToState(stateId) {
-    storeRatingForLater();
+    storeRatingForLater(stateId);
     updateStateFillColor(stateId);
 }
 
@@ -53,6 +53,7 @@ function applyRatingToState(stateId) {
  */
 function storeRatingForLater(stateId) {
     stateRatings[stateId] = selectedRating;
+    console.log(JSON.stringify(stateRatings));
 }
 
 /**
