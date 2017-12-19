@@ -1,0 +1,36 @@
+div {
+    border: solid 2px black;
+    padding: 2px;
+}
+
+#mainBox {
+    border-color: lightblue;
+    text-align: center;
+}
+
+#titleBox {
+    border-color: lightseagreen;
+}
+
+#explanationBox {
+    border-color: lightyellow;
+}
+
+#colorPickBox {
+    border-color: lightcoral;
+}
+
+#mapBox {
+    border-color: lightgreen;
+}
+
+#internalMapBox {
+    border-color: crimson;
+    margin: auto;
+    width: 50%;
+}
+
+#submitButtonBox {
+    border-color: lightgrey;
+}
+
