@@ -3,7 +3,6 @@ body {
 }
 
 div {
-    border: solid 2px black;
     padding: 2px;
     min-width: 0;
     min-height: 0;

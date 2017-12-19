@@ -10,7 +10,7 @@ ratingFluff = ["Irredeemable", "Awful", "Bad", "Mediocre", "Average", "Fair", "G
 
 //The currently selected rating.  
 var selectedRating = 10;
-
+var remainingUnratedStates = 50;
 
 /**
  * Sets up the US map and any event handlers associated with it.
@@ -37,6 +37,7 @@ function createMap() {
 function setupMapClickEvent() {
     $('#map').on('usmapclick', function(event, data) {
         applyRatingToState(data.name.toUpperCase());
+        updateStatesRatedCounter();
     });
 }
 
@@ -52,8 +53,10 @@ function applyRatingToState(stateId) {
  * Stores the current ratings for the map, which will be sent to the server when the ratings are submitted.
  */
 function storeRatingForLater(stateId) {
-    stateRatings[stateId] = selectedRating;
-    console.log(JSON.stringify(stateRatings));
+    if(stateId != "DC") { //don't bother storing DC, you can barely see it.
+        stateRatings[stateId] = selectedRating;
+        console.log(JSON.stringify(stateRatings));
+    }
 }
 
 /**
@@ -64,6 +67,11 @@ function updateStateFillColor(stateId) {
     fillStyle[stateId] = {fill:ratingColors[selectedRating - 1]};
     // Using mutable options from https://github.com/NewSignature/us-map/pull/18
     $('#map').usmap('stateSpecificStyles', fillStyle);
+}
+
+function updateStatesRatedCounter() {
+    remainingUnratedStates = 50 - Object.keys(stateRatings).length;
+    $('#ratingCounter').html(remainingUnratedStates + " states remaining");
 }
 
 /**
