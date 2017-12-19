@@ -11,7 +11,7 @@ var selectedRating = 10;
 
 
 /**
- * sets up the US map and any event handlers associated with it.
+ * Sets up the US map and any event handlers associated with it.
  */
 function initMap() {
     createMap();
@@ -25,7 +25,7 @@ function createMap() {
     $('#map').usmap({
         stateStyles: {fill: 'white'},
         stateHoverStyles: {fill: 'darkgreen'},
-        stateHoverAnimation: 100
+        stateHoverAnimation: 50
     });
 }
 
@@ -47,7 +47,7 @@ function applyRatingToState(stateId) {
 }
 
 /**
- * stores the current ratings for the map, which will be sent to the server when the ratings are submitted.
+ * Stores the current ratings for the map, which will be sent to the server when the ratings are submitted.
  */
 function storeRatingForLater(stateId) {
     stateRatings[stateId] = selectedRating;
@@ -63,11 +63,20 @@ function updateStateFillColor(stateId) {
     $('#map').usmap('stateSpecificStyles', fillStyle);
 }
 
+function initRatingButtons() {
+    for(var i = 1; i <= 10; i++) {
+        $('#ratingPickBox').append("<button id='ratingButton" + i + 
+                "' style='background-color:" + ratingColors[i - 1] + 
+                "' onclick='selectedRating = " + i + "'> " + i + "</button>");
+    }
+}
+
 /**
  * Initialize the page
  */
 $(document).ready(function() {
     initMap();
+    initRatingButtons();
 });
 
 

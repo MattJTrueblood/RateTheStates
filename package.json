@@ -8,7 +8,7 @@
         "client",
         "browser"
     ],
-    "author": "E0202VA",
+    "author": "Matthew Trueblood",
     "contributors": [],
     "dependencies": {
         "express": "^4.16.2"
