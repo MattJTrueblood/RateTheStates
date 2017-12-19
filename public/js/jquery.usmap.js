@@ -50,7 +50,8 @@
   // Some constants
   var WIDTH = 930,
       HEIGHT = 630,
-      LABELS_WIDTH = 70;
+      LABELS_WIDTH = 70,
+      MUTABLE_PROPERTIES = ['stateStyles','stateHoverStyles','stateSpecificStyles','stateSpecificHoverStyles'];
   
   // Default options
   var defaults = {
@@ -148,7 +149,7 @@
     _init: function(options) {
       // Save the options
       this.options = {};
-      $.extend(this.options, defaults, options);
+      $.extend(true, this.options, defaults, options);
       
       // Save the width and height;
       var width = this.element.width();
@@ -183,6 +184,18 @@
       if(this.options.showLabels) {
         this._initCreateLabels();
       }
+
+      // create methods for modifying mutable properties
+      $.each(MUTABLE_PROPERTIES,$.proxy(function(i,property) {
+        if(typeof this[property] === "function") return;
+
+        this[property] = function(styles)
+        {
+          if(styles === null) return this.options[property];
+          this.options[property] = $.extend(true,this.options[property],styles);
+          this._refreshMap(property);
+        }
+      },this));
       
       // Add the 
     },
@@ -578,6 +591,39 @@
       }
       
       return !defaultPrevented;
+    },
+
+    /**
+     * @param string property - A specific property to update, otherwise updates all mutable properties
+     */
+    _refreshMap:function(property) {
+      var properties = typeof property === "undefined" ? MUTABLE_PROPERTIES : [property];
+      var i = 0;
+      var c = properties.length;
+      var stateShape;
+      for(i;i<c;i++)
+      {
+        var property = properties[i];
+        switch(property)
+        {
+          case "stateStyles":
+            for(var abbreviation in this.stateShapes)
+            {
+              stateShape = this.stateShapes[abbreviation];
+              for(style in this.options[property])
+                stateShape.attr(style,this.options[property][style]);
+            }
+            break;
+          case "stateSpecificStyles":
+            for(var abbreviation in this.options[property])
+            {
+              stateShape = this.stateShapes[abbreviation];
+              for(style in this.options[property][abbreviation])
+                stateShape.attr(style,this.options[property][abbreviation][style]);
+            }
+            break;
+        }
+      }
     },
     
     
