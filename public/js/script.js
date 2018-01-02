@@ -53,7 +53,7 @@ function applyRatingToState(stateId) {
  * Stores the current ratings for the map, which will be sent to the server when the ratings are submitted.
  */
 function storeRatingForLater(stateId) {
-    if(stateId != "DC") { //don't bother storing DC, you can barely see it.
+    if(stateId !== "DC") { //don't bother storing DC, you can barely see it.
         stateRatings[stateId] = selectedRating;
         console.log(JSON.stringify(stateRatings));
     }
@@ -86,12 +86,38 @@ function initRatingButtons() {
     }
 }
 
+function sendRatingsToServer() {
+    $.ajax({
+        type: 'POST',
+        data: JSON.stringify(stateRatings),
+        contentType: 'application/json',
+        url: 'http://localhost:3000/api',						
+        success: function(data) {
+            console.log('successfully delivered the ratings to the server');
+        }
+    });
+}
+
 /**
  * Initialize the page
  */
 $(document).ready(function() {
     initMap();
     initRatingButtons();
+});
+
+/**
+ * Send the stateRatings JSON object to the server when submit is clicked
+ */
+$('#submitButton').click(function(e){
+    e.preventDefault();
+    if(remainingUnratedStates > 0) {
+        if(!confirm("There are " + remainingUnratedStates + " states you left blank.  "
+                +  "Submit anyways?")) {
+            return;
+        }
+    }
+    sendRatingsToServer();
 });
 
 

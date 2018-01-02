@@ -11,7 +11,9 @@
     "author": "Matthew Trueblood",
     "contributors": [],
     "dependencies": {
-        "express": "^4.16.2"
+        "express": "^4.16.2",
+        "json-input-validator": "^0.1.3",
+        "mongodb": "^3.0.1"
     },
     "scripts": {
         "start": "node index.js"
